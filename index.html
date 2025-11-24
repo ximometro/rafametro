@@ -521,50 +521,50 @@
 
         // =============================================
         // PERSONALIZACIÓN DE EMOJIS
-        // =============================================
+// =============================================
 
-        function setEmoji(emoji) {
-            customFace.innerHTML = `<div class="default-face">${emoji}</div>`;
-            // Guardar en localStorage
-            localStorage.setItem('selectedEmoji', emoji);
-            // Limpiar imagen si había una
-            localStorage.removeItem('rafaFace');
-        }
+function setEmoji(emoji) {
+    customFace.innerHTML = `<div class="default-face">${emoji}</div>`;
+    // Guardar en localStorage
+    localStorage.setItem('rafaSelectedEmoji', emoji);  // ← CAMBIA 'selectedEmoji' por 'rafaSelectedEmoji'
+    // Limpiar imagen si había una
+    localStorage.removeItem('rafaFace');  // ← CAMBIA 'ximenaFace' por 'rafaFace'
+}
 
         // =============================================
         // EVENT LISTENERS Y ARRASTRE
-        // =============================================
+// =============================================
 
-        faceUpload.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    customFace.innerHTML = `<img src="${e.target.result}" alt="Rafa">`;
-                    // Guardar solo localmente
-                    localStorage.setItem('rafaFace', e.target.result);
-                    // Limpiar emoji guardado
-                    localStorage.removeItem('selectedEmoji');
-                }
-                reader.readAsDataURL(file);
-            }
-        });
+faceUpload.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            customFace.innerHTML = `<img src="${e.target.result}" alt="Rafa">`;
+            // Guardar solo localmente
+            localStorage.setItem('rafaFace', e.target.result);  // ← CAMBIA 'ximenaFace' por 'rafaFace'
+            // Limpiar emoji guardado
+            localStorage.removeItem('rafaSelectedEmoji');  // ← CAMBIA 'selectedEmoji' por 'rafaSelectedEmoji'
+        }
+        reader.readAsDataURL(file);
+    }
+});
 
-        // Cargar al iniciar
-        window.addEventListener('load', function() {
-            // Primero intentar cargar imagen
-            const savedFace = localStorage.getItem('rafaFace');
-            if (savedFace) {
-                customFace.innerHTML = `<img src="${savedFace}" alt="Rafa">`;
-            } else {
-                // Si no hay imagen, cargar emoji guardado
-                const savedEmoji = localStorage.getItem('selectedEmoji') || '🧔🏻🎸';
-                customFace.innerHTML = `<div class="default-face">${savedEmoji}</div>`;
-            }
-            
-            // Cargar datos de Firebase
-            loadFromDatabase();
-        });
+// Cargar al iniciar
+window.addEventListener('load', function() {
+    // Primero intentar cargar imagen
+    const savedFace = localStorage.getItem('rafaFace');  // ← CAMBIA 'ximenaFace' por 'rafaFace'
+    if (savedFace) {
+        customFace.innerHTML = `<img src="${savedFace}" alt="Rafa">`;
+    } else {
+        // Si no hay imagen, cargar emoji guardado
+        const savedEmoji = localStorage.getItem('rafaSelectedEmoji') || '🧔🏻🎸';  // ← CAMBIA 'selectedEmoji' por 'rafaSelectedEmoji'
+        customFace.innerHTML = `<div class="default-face">${savedEmoji}</div>`;
+    }
+    
+    // Cargar datos de Firebase
+    loadFromDatabase();
+});
 
         // Sistema de arrastre
         let isDragging = false;
